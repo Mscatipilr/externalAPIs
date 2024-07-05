@@ -34,7 +34,11 @@ app.get('/get-key-statistics', async (req, res) => {
     res.json(response.data);
   } catch (error) {
     console.error('Error with API request:', error.message);
-    res.status(500).send('Error fetching key statistics');
+    if (error.response && error.response.status === 429) {
+      res.status(429).send('API request limit exceeded. Please try again later.');
+    } else {
+      res.status(500).send('Error fetching key statistics');
+    }
   }
 });
 
