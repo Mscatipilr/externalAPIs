@@ -16,7 +16,7 @@ body {
     display: flex;
     align-items: end;
 }
-span {
+#appBy {
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -24,4 +24,42 @@ span {
     background-color: #432874;
     border-color: #432874;
     color: white;
+    transition: all 0.5s;
+}
+.btn-primary span {
+    background-color: #432874;
+    border-color: #432874;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+.btn-primary span:after {
+    background-color: #432874;
+    border-color: #432874;
+    color: white;
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+.btn-primary:hover {
+    background-color: #331a4b; /* Darker shade for hover effect */
+    border-color: #331a4b;
+  }
+.btn-primary:hover span {
+    background-color: #331a4b;
+    border-color: #331a4b;
+    color: white;
+    padding-right: 25px;
+}
+.btn-primary:hover span:after {
+    background-color: #331a4b;
+    border-color: #331a4b;
+    color: white;
+    opacity: 1;
+    right: 0;
 }
