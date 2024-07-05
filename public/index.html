@@ -4,11 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stocks App</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Wix+Madefor+Display:wght@400..800&display=swap" rel="stylesheet">  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
+  <div class="container wixFont">
     <h1 class="mt-5">Stocks <span class="h4">app by <i>purple!</i></span></h1>
       <h5 class="">Get the latest information on your favorite stocks in one simple click!</h5>
 
@@ -35,9 +37,12 @@
         displayKeyStatistics(response.data);
       } catch (error) {
         console.error('Error fetching key statistics:', error.message);
+        displayErrorMessage(error);
       }
     }
-
+    function displayErrorMessage(error) {
+        alert(`Error fetching key statistics: ${error.message}`);
+    }
     function displayKeyStatistics(data) {
       const keyStatisticsDiv = document.getElementById('keyStatistics');
       keyStatisticsDiv.innerHTML = '';
