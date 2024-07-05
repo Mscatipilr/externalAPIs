@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stock Key Statistics</title>
+  <title>Stocks App</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
-    <h1 class="mt-5">Stocks</h1>
+    <h1 class="mt-5">Stocks <span class="h4">app by <i>purple!</i></span></h1>
       <h5 class="">Get the latest information on your favorite stocks in one simple click!</h5>
 
     <div class="result-container">
@@ -43,7 +43,7 @@
       keyStatisticsDiv.innerHTML = '';
 
       const table = document.createElement('table');
-      table.className = 'table table-bordered';
+      table.className = 'table table-responsive table-sm table-bordered table-striped table-hover';
 
       const thead = document.createElement('thead');
       const tbody = document.createElement('tbody');
@@ -52,6 +52,7 @@
       const headerRow = document.createElement('tr');
       headers.forEach(header => {
         const th = document.createElement('th');
+        th.className = 'col';
         th.textContent = header;
         headerRow.appendChild(th);
       });
