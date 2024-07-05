@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stock Key Statistics</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="mt-5">Stocks</h1>
+      <h5 class="">Get the latest information on your favorite stocks in one simple click!</h5>
+
+    <div class="result-container">
+      <form id="stockForm">
+        <div class="form-group">
+          <label for="stockSymbol">Enter Stock Symbol</label>
+          <input type="text" class="form-control" id="stockSymbol" placeholder="e.g., AAPL, NYSE" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Get Key Statistics</button>
+      </form>
+
+      <div id="keyStatistics" class="mt-3"></div>
+    </div>
+  </div>
+
+  <!--When a symbol is entered and data fetched from api through app.js, display the data on the webpage -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    async function getKeyStatistics(stockSymbol) {
+      try {
+        const response = await axios.get(`/get-key-statistics?symbol=${stockSymbol}`);
+        console.log('API response:', response.data);
+        displayKeyStatistics(response.data);
+      } catch (error) {
+        console.error('Error fetching key statistics:', error.message);
+      }
+    }
+
+    function displayKeyStatistics(data) {
+      const keyStatisticsDiv = document.getElementById('keyStatistics');
+      keyStatisticsDiv.innerHTML = '';
+
+      const table = document.createElement('table');
+      table.className = 'table table-bordered';
+
+      const thead = document.createElement('thead');
+      const tbody = document.createElement('tbody');
+
+      const headers = ['Statistic', 'Value'];
+      const headerRow = document.createElement('tr');
+      headers.forEach(header => {
+        const th = document.createElement('th');
+        th.textContent = header;
+        headerRow.appendChild(th);
+      });
+      thead.appendChild(headerRow);
+
+      Object.entries(data).forEach(([key, value]) => {
+        const row = document.createElement('tr');
+        const keyCell = document.createElement('td');
+        keyCell.textContent = key;
+        const valueCell = document.createElement('td');
+        valueCell.textContent = value;
+
+        row.appendChild(keyCell);
+        row.appendChild(valueCell);
+        tbody.appendChild(row);
+      });
+
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      keyStatisticsDiv.appendChild(table);
+    }
+
+    document.getElementById('stockForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const stockSymbol = document.getElementById('stockSymbol').value.toUpperCase();
+      getKeyStatistics(stockSymbol);
+    });
+  </script>
+</body>
+</html>
