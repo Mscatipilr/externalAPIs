@@ -10,27 +10,51 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body >
-<div class="container wixFont">
-    <h1 class="my-4 aligned" style="max-width: 540px;">Stocks <span id="appBy" class="h4 aligned">app by</span>
-        <a class="navbar-brand ml-auto" href="#">
-        <img id="logo" src="purple.png" alt="logo" width="100px">
-        </a>
-    </h1>
-    <h6 class="mb-5">Get the latest information on your favorite stocks in one simple click!</h6>
-
-    <div class="card result-container mb-5" style="width: 18rem;">
-      <img src="https://cdn.pixabay.com/photo/2024/01/06/02/44/ai-generated-8490532_640.png" class="card-img-top" alt="generic graph">
-        <form id="stockForm" class="card-body">
-            <div class="form-group">
-            <label for="stockSymbol">Enter Stock Symbol</label>
-            <input type="text" class="form-control" id="stockSymbol" placeholder="e.g., AAPL, NYSE" required>
-            </div>
-            <button type="submit" class="btn btn-primary"><span>Get Key Statistics</span></button>
-        </form>
+<div id="c2">
+  <div id="c1" class="container" style="max-width: 540px;">
+    <div class="container wixFont">
+        <h1 class="my-4 aligned">Stocks <span id="appBy" class="h4 aligned">app by</span>
+            <a class="navbar-brand ml-auto" href="#">
+            <img id="logo" src="purple.png" alt="logo" width="100px">
+            </a>
+        </h1>
+        <h6 class="mb-5">Get the latest information on your favorite stocks in one simple click!</h6>
+        <div class="d-flex justify-content-center">
+          <div class="card result-container mb-5" style="width: 18rem;">
+            <img src="https://cdn.pixabay.com/photo/2024/01/06/02/44/ai-generated-8490532_640.png" class="card-img-top" alt="generic graph">
+            <form id="stockForm" class="card-body">
+                <div class="form-group">
+                <label for="stockSymbol">Enter Stock Symbol</label>
+                <input type="text" class="form-control" id="stockSymbol" placeholder="e.g., AAPL, NYSE" required>
+                </div>
+                <button type="submit" class="btn btn-primary"><span>Get Key Statistics</span></button>
+            </form>
+          </div>
+        </div>
     </div>
-      <div id="keyStatistics" class="mt-3">
-        <!--script generated html goes here-->
+          <div id="keyStatistics" class="mt-3">
+            <!--script generated html goes here-->
+          </div>
+  </div>
+</div>
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="statisticsModal" tabindex="-1" role="dialog" aria-labelledby="statisticsModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="statisticsModalLabel">Key Statistics</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
+      <div class="modal-body" id="modalBody">
+        <!-- Table will be inserted here -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 
   <!--When a symbol is entered and data fetched from api through app.js, display the data on the webpage -->
@@ -41,6 +65,7 @@
         const response = await axios.get(`/get-key-statistics?symbol=${stockSymbol}`);
         console.log('API response:', response.data);
         displayKeyStatistics(response.data);
+        $('#statisticsModal').modal('show');
       } catch (error) {
         console.error('Error fetching key statistics:', error.message);
         if (error.response && error.response.status === 429) {
@@ -54,8 +79,8 @@
         alert(`${message}`);
     }
     function displayKeyStatistics(data) {
-      const keyStatisticsDiv = document.getElementById('keyStatistics');
-      keyStatisticsDiv.innerHTML = '';
+      const modalBody = document.getElementById('modalBody');
+      modalBody.innerHTML = '';
 
       const table = document.createElement('table');
       table.className = 'table table-responsive table-sm table-bordered table-striped table-hover';

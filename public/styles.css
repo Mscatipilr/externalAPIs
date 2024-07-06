@@ -1,4 +1,7 @@
 body {
+    background: linear-gradient(to right bottom, #b2a9c1, #5d5175, #190d25 70%); 
+}
+#c1 {
     background-color: #fdfbfb;
     color: #432874;
 }
@@ -62,4 +65,8 @@ body {
     color: white;
     opacity: 1;
     right: 0;
+}
+/*modal styling*/
+.modal-content {
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.5);
 }
