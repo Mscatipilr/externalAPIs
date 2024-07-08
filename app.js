@@ -29,7 +29,7 @@ app.get('/get-key-statistics', async (req, res) => {
     }
   };
 
-  try {
+  try { 
     const response = await axios.request(options);
     res.json(response.data);
   } catch (error) {
